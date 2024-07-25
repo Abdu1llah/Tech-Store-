@@ -1,0 +1,594 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tech Store - متجرك الاحترافي للمنتجات الرقمية</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800&display=swap');
+
+        :root {
+            --primary-color: #0d47a1;
+            --secondary-color: #1976d2;
+            --accent-color: #ff9900;
+            --text-color: #333;
+            --bg-color: #f8f9fa;
+            --card-bg: #ffffff;
+            --light-bg: #e3f2fd;
+            --dark-bg: #0d47a1;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Tajawal', sans-serif;
+            line-height: 1.6;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+        }
+        
+        header {
+            background-color: var(--primary-color);
+            color: #fff;
+            padding: 1rem;
+            position: fixed;
+            width: 100%;
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+        
+        header.scrolled {
+            background-color: rgba(13, 71, 161, 0.9);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .logo {
+            font-size: 2rem;
+            font-weight: 800;
+            color: var(--accent-color);
+            text-decoration: none;
+        }
+        
+        nav ul {
+            list-style-type: none;
+            display: flex;
+        }
+        
+        nav ul li {
+            margin-right: 20px;
+        }
+        
+        nav ul li:last-child {
+            margin-right: 0;
+        }
+        
+        nav ul li a {
+            color: #fff;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+            position: relative;
+        }
+        
+        nav ul li a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            background-color: var(--accent-color);
+            bottom: -5px;
+            left: 0;
+            transition: width 0.3s ease;
+        }
+        
+        nav ul li a:hover::after {
+            width: 100%;
+        }
+        
+        .hero {
+            background-color: var(--primary-color);
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: #fff;
+            padding-top: 80px;
+        }
+        
+        .hero-content {
+            max-width: 800px;
+        }
+        
+        .hero h1 {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            animation: fadeInUp 1s ease;
+        }
+        
+        .hero p {
+            font-size: 1.5rem;
+            margin-bottom: 2rem;
+            animation: fadeInUp 1s ease 0.2s;
+            animation-fill-mode: both;
+        }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .btn {
+            display: inline-block;
+            background-color: var(--accent-color);
+            color: #fff;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .btn:hover {
+            background-color: #e68a00;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 10px rgba(255, 152, 0, 0.3);
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 80px 20px;
+        }
+        
+        .section-title {
+    text-align: center;
+    font-size: 3rem;
+    margin-bottom: 3rem;
+    color: #fff; /* تغيير اللون إلى الأبيض */
+    position: relative;
+}
+
+        
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 100px;
+            height: 4px;
+            background-color: var(--accent-color);
+            margin: 20px auto 0;
+        }
+        
+        .products {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+        }
+        
+        .product {
+            background-color: var(--card-bg);
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        
+        .product:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+        }
+        
+        .product-image {
+            height: 250px;
+            overflow: hidden;
+        }
+        
+        .product-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        
+        .product:hover .product-image img {
+            transform: scale(1.1);
+        }
+        
+        .product-content {
+            padding: 30px;
+        }
+        
+        .product h3 {
+            font-size: 1.8rem;
+            margin-bottom: 15px;
+            color: var(--primary-color);
+        }
+        
+        .product p {
+            margin-bottom: 20px;
+            color: #666;
+        }
+        
+        .product .price {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--accent-color);
+            margin-bottom: 20px;
+        }
+        
+        .product .btn {
+            width: 100%;
+            text-align: center;
+        }
+        
+        .features {
+            background-color: var(--light-bg);
+            color: var(--text-color);
+            padding: 100px 0;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .features::before {
+            content: '';
+            position: absolute;
+            top: -50px;
+            left: 0;
+            width: 100%;
+            height: 100px;
+            background-color: var(--bg-color);
+            transform: skewY(-2deg);
+        }
+        
+        .features::after {
+            content: '';
+            position: absolute;
+            bottom: -50px;
+            left: 0;
+            width: 100%;
+            height: 100px;
+            background-color: var(--bg-color);
+            transform: skewY(2deg);
+        }
+        
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 50px;
+        }
+        
+        .feature {
+            text-align: center;
+            padding: 30px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .feature:hover {
+            transform: translateY(-10px);
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+        
+        .feature i {
+            font-size: 4rem;
+            margin-bottom: 1.5rem;
+            color: var(--accent-color);
+        }
+        
+        .feature h3 {
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+            color: var(--primary-color);
+        }
+        
+        .feature p {
+            color: #666;
+        }
+        
+        .testimonials {
+            background-color: var(--dark-bg);
+            color: #fff;
+            padding: 100px 0;
+        }
+        
+        .testimonial-slider {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+        }
+        
+        .testimonial {
+            background-color: #fff;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            color: var(--text-color);
+            position: relative;
+            margin-bottom: 20px;
+        }
+        
+        .testimonial p {
+            font-size: 1.2rem;
+            font-style: italic;
+            margin-bottom: 20px;
+        }
+        
+        .testimonial .author {
+            font-weight: 700;
+            color: var(--primary-color);
+            margin-top: 10px;
+        }
+        
+        .testimonial::before {
+            content: open-quote;
+            font-size: 3rem;
+            color: var(--accent-color);
+            position: absolute;
+            top: -10px;
+            left: -10px;
+        }
+        
+        .testimonial::after {
+            content: close-quote;
+            font-size: 3rem;
+            color: var(--accent-color);
+            position: absolute;
+            bottom: -10px;
+            right: -10px;
+        }
+        
+        section#contact {
+            background-color: var(--light-bg);
+            padding: 100px 0;
+        }
+        
+        section#contact p {
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+        }
+        
+        footer {
+            background-color: var(--primary-color);
+            color: #fff;
+            padding: 80px 0 30px;
+        }
+        
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+        }
+        
+        .footer-section {
+            flex: 1;
+            margin-right: 40px;
+            min-width: 200px;
+        }
+        
+        .footer-section h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+            color: var(--accent-color);
+        }
+        
+        .footer-section ul {
+            list-style-type: none;
+        }
+        
+        .footer-section ul li {
+            margin-bottom: 1rem;
+        }
+        
+        .footer-section ul li a {
+            color: #fff;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        
+        .footer-section ul li a:hover {
+            color: var(--accent-color);
+        }
+        
+        .social-icons a {
+            color: #fff;
+            font-size: 1.8rem;
+            margin-right: 20px;
+            transition: color 0.3s ease;
+        }
+        
+        .social-icons a:hover {
+            color: var(--accent-color);
+        }
+        
+        .copyright {
+            text-align: center;
+            margin-top: 50px;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            font-size: 0.9rem;
+        }
+        
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            
+            nav ul {
+                margin-top: 1rem;
+            }
+            
+            .hero h1 {
+                font-size: 3rem;
+            }
+            
+            .footer-section {
+                flex: 100%;
+                margin-right: 0;
+                margin-bottom: 40px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-content">
+            <a href="#" class="logo">Tech Store</a>
+            <nav>
+                <ul>
+                    <li><a href="#home">الرئيسية</a></li>
+                    <li><a href="#products">المنتجات</a></li>
+                    <li><a href="#features">مميزاتنا</a></li>
+                    <li><a href="#testimonials">آراء العملاء</a></li> 
+                    <li><a href="#contact">اتصل بنا</a></li> 
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <section id="home" class="hero">
+        <div class="hero-content">
+            <h1>اكتشف عالم التكنولوجيا الرقمية</h1>
+            <p>نقدم مجموعة من الخدمات و الاشتراكات الالكترونية اللي تساعدك في شغلك ودراستك ⭐</p>
+            <a href="#products" class="btn">تسوق الآن</a>
+        </div>
+    </section>
+
+    <section id="products" class="container">
+        <h2 class="section-title">منتجاتنا المميزة</h2>
+        <div class="products">
+            <div class="product">
+                <div class="product-image">
+                    <img src="451324262_468590879461167_6606738656618958993_n.jpg" alt="GPT-4o">
+                </div>
+                <div class="product-content">
+                    <h3>اشتراك GPT-4o</h3>
+                    <p>تحدث واستمع بأي لغة، ارسم صور، ارفع ملفات، واستخدم الإنترنت بميزات متقدمة مع GPT-4o.</p>
+                    <div class="price">129 ج.م</div>
+                    <a href="https://wa.me/1207776358?text=أود%20الاشتراك%20في%20GPT-4o" class="btn">اشترك الآن</a>
+                </div>
+            </div>
+
+            <!-- يمكن إضافة منتجات أخرى هنا -->
+        </div>
+    </section>
+
+    <section id="features" class="features">
+        <div class="container">
+            <h2 class="section-title">  مميزات الاشتراك من خلال صفحة Tech Store؟</h2>
+            <div class="features-grid">
+                <div class="feature">
+                    <i class="fa fa-comments" style="color: #products;"></i> <h3> حد عالي من الرسائل</h3>
+                    <p> بتحصل على حد عالي من الرسائل يصل الى ۱۲۰ رسالة كل ۳ ساعات.</p>
+
+                </div>
+                <div class="feature">
+                    <i class="fas fa-undo"></i>
+                    <h3>إرجاع مجاني</h3>
+                    <p>   ضمان للاكونت طوال فترة الاشتراك في حالة حدوث اي مشكلة تقدر تسترد فلوسك!</p>
+                </div>
+                <div class="feature">
+                    <i class="fas fa-headset"></i>
+                    <h3>دعم فني 24/7</h3>
+                    <p>فريق دعمنا الفني متواجد لخدمتك على مدار الساعة وطوال أيام الأسبوع</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="testimonials" class="testimonials">
+        <div class="container">
+            <h2 class="section-title">آراء العملاء</h2>
+            <div class="testimonial-slider">
+                <div class="testimonial">
+                    <p>"منتجات رائعة وخدمة عملاء مميزة. أوصي بشدة بـ Tech Store."</p>
+                    <span class="author">أحمد محمد</span>
+                </div>
+                <div class="testimonial">
+                    <p>"أفضل مكان لشراء المنتجات الرقمية. جودة عالية وسرعة في التوصيل."</p>
+                    <span class="author">منى علي</span>
+                </div>
+                <div class="testimonial">
+                    <p>"خدمة عملاء ممتازة وتجربة تسوق ممتعة. سأعود للشراء مجددًا."</p>
+                    <span class="author">خالد يوسف</span>
+                </div>
+                <div class="testimonial">
+                    <p>"اشتريت اشتراك GPT-4o من Tech Store، وكانت تجربة رائعة. الخدمة سريعة والمنتج متميز."</p>
+                    <span class="author">سارة مصطفى</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="container">
+        <h2 class="section-title">اتصل بنا</h2>
+        <div class="contact-content">
+            <p>إذا كان لديك أي استفسارات أو تحتاج إلى دعم، لا تتردد في التواصل معنا.</p>
+            <p>البريد الإلكتروني: <a href="mailto:cgpt10000@gmail.com">cgpt10000@gmail.com</a></p>
+            <p>رقم الهاتف:<a href="https://wa.me/1207776358?text=أود%20الاشتراك%20في%20GPT-4o">1207776358</a></p>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Tech Store</h3>
+                    <ul>
+                        <li><a href="#home">الرئيسية</a></li>
+                        <li><a href="#products">المنتجات</a></li>
+                        <li><a href="#features">مميزاتنا</a></li>
+                        <li><a href="#testimonials">آراء العملاء</a></li>
+                        <li><a href="#contact">اتصل بنا</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>معلومات</h3>
+                    <ul>
+                        <li><a href="#">سياسة الخصوصية</a></li>
+                        <li><a href="#">الشروط والأحكام</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>تابعنا</h3>
+                    <div class="social-icons">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="copyright">
+                &copy; 2024 Tech Store. جميع الحقوق محفوظة.
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
